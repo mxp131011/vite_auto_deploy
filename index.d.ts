@@ -4,14 +4,14 @@ export interface optionsType {
     /**
      * 项目名称 用于服务器端权限验证
      *
-     * @default installed version
+     * @default ''
      */
     projectName: string; 
 
     /**
      * 上传的地址
      *
-     * @default installed version
+     * @default ''
      */
     uploadUrl: string; 
 
