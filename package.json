@@ -1,44 +1,49 @@
 {
-    "name": "vite-auto-deploy",
-    "version": "1.1.11",
-    "description": "用于配合 PHP 自动打包并上传打包后的文件到服务器指定目录的插件，此插件需要配合 php [项目地址](https://gitee.com/mxp131011/auto_deploy/)",
-    "keywords": [
-        "automation",
-        "deploy",
-        "vite",
-        "build"
-    ],
-    "main": "index.js",
-    "types": "./index.d.ts",
-    "dependencies": {
-        "chalk": "latest",
-        "form-data": "latest",
-        "getmac": "latest",
-        "jszip": "latest",
-        "ora": "latest",
-        "path": "latest"
-    },
-    "scripts": {
-        "登录": "npm login",
-        "更新一个补丁": "npm version patch",
-        "更新一个小改动": "npm version minor",
-        "更新一个大改动": "npm version major",
-        "发布": "npm publish",
-        "更新并发布": "npm version patch && npm publish"
-    },
-    "bugs": {
-        "email": "mxp131011@qq.com",
-        "url": "https://gitee.com/mxp_open/vite_auto_deploy_js/issues"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://gitee.com/mxp_open/vite_auto_deploy_js"
-    },
-    "author": {
-        "name": "O昵称重要吗O",
-        "email": "mxp131011@qq.com",
-        "url": "https://gitee.com/mxp131011"
-    },
-    "license": "MIT",
-    "homepage": "https://gitee.com/mxp_open/vite_auto_deploy_js"
+  "name": "vite-auto-deploy",
+  "version": "1.1.11",
+  "description": "用于配合 PHP 自动打包并上传打包后的文件到服务器指定目录的插件，此插件需要配合 php [项目地址](https://gitee.com/mxp131011/auto_deploy/)",
+  "keywords": [
+    "automation",
+    "deploy",
+    "vite",
+    "build"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "chalk": "latest",
+    "form-data": "latest",
+    "getmac": "latest",
+    "jszip": "latest",
+    "ora": "latest",
+    "path": "latest"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "vite": "latest"
+  },
+  "scripts": {
+    "打包": "rimraf dist && tsc",
+    "登录": "npm login",
+    "更新一个补丁": "npm version patch",
+    "更新一个小改动": "npm version minor",
+    "更新一个大改动": "npm version major",
+    "发布": "npm publish",
+    "更新并发布": "npm version patch && npm publish"
+  },
+  "bugs": {
+    "email": "mxp131011@qq.com",
+    "url": "https://gitee.com/mxp_open/vite_auto_deploy_js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/mxp_open/vite_auto_deploy_js"
+  },
+  "author": {
+    "name": "O昵称重要吗O",
+    "email": "mxp131011@qq.com",
+    "url": "https://gitee.com/mxp131011"
+  },
+  "license": "MIT",
+  "homepage": "https://gitee.com/mxp_open/vite_auto_deploy_js"
 }

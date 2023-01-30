@@ -1,18 +1,18 @@
 # 介绍
 
-用于自动打包并上传打包后的文件到服务器指定目录的项目，此插件需要配合 [vite_auto_deploy_php](https://gitee.com/mxp_open/vite_auto_deploy_php)php代码才能实现，具体功能如下：
+用于自动打包并上传打包后的文件到服务器指定目录的项目，此插件需要配合服务器端代码才能实现。(详见:[服务器开发指南](#服务器开发指南)))，具体功能如下：
 
 1. 客户端运行 `vite build`后自动压缩并上传打包好的文件至指定服务器的指定目录中
 2. 服务器解压传过来的源代码->删除已存在的指定目录的所有内容->保存解压后的文件到指定目录中
-3. 使用js编写且源码简单注释详细易于修改，可自行修改与扩展
+3. 使用 js 编写且源码简单注释详细易于修改，可自行修改与扩展
 4. 注意：服务器会验证设备 mac 是否在允许上传的设备白名单内，且服务器必须配置允许上传的`{'项目名':'保存目录'}`的键值对白名单
 
-## 为什么需要使用php而不用sftp
+## 为什么不使用 sftp 等实现自动化部署
 
-1. sftp上传需要暴露账号密码，配合使用php则无需暴露账号密码
-2. sftp不利于控制上传的设备白名单，配合使用php则可以限制设备白名单
-3. sftp不能压缩，上传不稳定，速度较慢
-4. php代码部署简单，无需专门搭建sftp服务器
+1. sftp 上传需要暴露账号密码，本插件配合服务器端就不用暴露账号密码更加安全
+2. sftp 不利于控制上传的设备白名单，本插件配合服务器端可实现只允许某几个 mac 地址的设备上传
+3. sftp 不能压缩，上传不稳定，速度较慢，本插件是先压缩然后上传压缩包，在由服务器端解压部署，更稳定高效率
+4. sftp 需要搭建专门的 sftp 服务
 
 ## 安装
 
@@ -31,31 +31,38 @@ yarn add vite-auto-deploy
 ```js
 //在 vite.config.js文件中添加
 import autoDeploy from 'vite-auto-deploy';
-import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
 export default defineConfig(() => {
-    return {
-        plugins: [
-            vue(),
-            autoDeploy({
-                projectName: '', // 项目名称 用于服务器端获取保存到哪一个目录下 【也可用于限制那些项目可以上传，只有在允许项目的白名单内才可以上传】
-                uploadUrl: '', // 上传地址 如：https://www.xxxxx.com/auto_deploy/main/deploy.php
-                saveLocalZip: false // 是否保存本地zip文件 默认false
-            })
-        ],
-        resolve: {
-            alias: {
-                '@/': '/src/'
-            }
-        }
-    };
+  return {
+    plugins: [
+      autoDeploy({
+        projectName: '', // 项目名称 用于服务器端获取保存到哪一个目录下 【也可用于限制那些项目可以上传，只有在允许项目的白名单内才可以上传】
+        uploadUrl: '', // 上传地址 如：https://www.xxxxx.com/auto_deploy/main/deploy.php
+        saveLocalZip: false // 是否保存本地zip文件 默认false
+      })
+    ]
+  };
 });
 ```
 
-## 获取本机MAC
+## 获取本机 MAC
 
-1. 引入此插件后，打包时如果没有把mac加到服务器的白名单时，会在控制台提示出本机mac
-2. 使用[getmac](https://www.npmjs.com/package/getmac)插件获取 【推荐 本插件就是用getmac获取的本机mac】
+1. 引入此插件后，打包时如果没有把 mac 加到服务器的白名单时，会在控制台提示出本机 mac
+2. 使用[getmac](https://www.npmjs.com/package/getmac)插件获取 【推荐 本插件就是用 getmac 获取的本机 mac】
+
+## 服务器开发指南
+
+本插件最终会上传如下参数给服务器：
+
+```js
+{
+  file:aaaa.zip, // 压缩后的zip文件流 (服务器端需要解压吃文件然后部署到指定文件夹下)
+  mac:'', // mac地址 (主要用于限制那些mac可以上传)
+  projectName:'' ，// 项目名称 (主要用于如果由多个项目都是用一个上传接口，那么就可以根据项目名称来确定这个项目要部署到哪个文件夹下)
+}
+```
+
+服务器端可通过 `file` 获取上传的源代码压缩包， 通过 `mac` 来限制允许那些设备上传，通过 `projectName` 指定这个项目应该部署到哪个目录下， 对于服务器端来说`mac`和`projectName`都不是必须的，也可根据自己的业务来决定是否使用`mac`和`projectName`，本人用 php 写了一个简单的服务端代码（[vite_auto_deploy_php](https://gitee.com/mxp_open/vite_auto_deploy_php/blob/master/main/deploy.php)）仅供参考
 
 ## 如需帮助
 
