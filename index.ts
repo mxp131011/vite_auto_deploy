@@ -4,7 +4,7 @@ import JSZip from 'jszip';
 import FormData from 'form-data';
 import { createSpinner } from 'nanospinner';
 import getMac from 'getMac';
-import type { ResolvedConfig } from 'vite';
+import type { ResolvedConfig, PluginOption } from 'vite';
 
 type $Config = {
   /** 上传地址 */
@@ -119,7 +119,7 @@ function uploading(url: string, buffer: Buffer, zipName: string, postData: $Post
  * 自动化部署插件
  * @param {object} config - 插件配置
  */
-export default function plugin(config: $Config) {
+export default function plugin(config: $Config): PluginOption {
   let viteConfig: ResolvedConfig | undefined = undefined; // 最终用户的vite配置
   return {
     name: 'vite-plugin-auto-deploy',
