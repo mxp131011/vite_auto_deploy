@@ -25,7 +25,7 @@
   "files": [
     "dist"
   ],
-  "type": "commonjs",
+  "type": "module",
   "devDependencies": {
     "tsup": "^6.5.0",
     "typescript": "latest",
