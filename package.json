@@ -18,6 +18,11 @@
     "ora": "latest",
     "path": "latest"
   },
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "type": "module",
   "devDependencies": {
     "typescript": "latest",
     "vite": "latest"

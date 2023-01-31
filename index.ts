@@ -2,6 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import JSZip from 'jszip';
 import FormData from 'form-data';
+import ora from 'ora';
+import chalk from 'chalk';
+import getMac from 'getMac';
 import type { ResolvedConfig } from 'vite';
 
 type $Config = {
@@ -131,9 +134,6 @@ export default function plugin(config: $Config) {
 
     /* 在构建完成后的回调 */
     async closeBundle() {
-      const ora = (await import('ora')).default;
-      const chalk = (await import('chalk')).default;
-      const getMac = (await import('getmac')).default;
       const uploadUrl = config.uploadUrl || false; // 请求地址
       const projectName = config.projectName || false; // 项目名称
       const spinner = ora();
