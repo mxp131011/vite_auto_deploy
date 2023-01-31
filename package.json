@@ -16,11 +16,10 @@
     "import": "./dist/index.mjs"
   },
   "dependencies": {
-    "chalk": "latest",
     "form-data": "latest",
     "getmac": "latest",
     "jszip": "latest",
-    "ora": "latest",
+    "nanospinner": "^1.1.0",
     "path": "latest"
   },
   "files": [
@@ -33,7 +32,7 @@
     "vite": "latest"
   },
   "scripts": {
-    "打包": "tsup -- --dts-resolve",
+    "打包": "tsup",
     "登录": "npm login",
     "更新一个补丁": "npm version patch",
     "更新一个小改动": "npm version minor",

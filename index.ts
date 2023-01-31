@@ -2,8 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import JSZip from 'jszip';
 import FormData from 'form-data';
-import ora from 'ora';
-import chalk from 'chalk';
+import { createSpinner } from 'nanospinner';
 import getMac from 'getMac';
 import type { ResolvedConfig } from 'vite';
 
@@ -136,14 +135,14 @@ export default function plugin(config: $Config) {
     async closeBundle() {
       const uploadUrl = config.uploadUrl || false; // 请求地址
       const projectName = config.projectName || false; // 项目名称
-      const spinner = ora();
-      spinner.start(chalk.blue('正在压缩并发布到服务器...'));
+      const spinner = createSpinner();
+      spinner.start({ text: '正在压缩并发布到服务器...', color: 'blue' });
       if (!uploadUrl) {
-        spinner.fail(chalk.red.bold('发布到服务器失败,请配置uploadUrl'));
+        spinner.error({ text: '发布到服务器失败,请配置uploadUrl', mark: ':(' });
       } else if (!projectName) {
-        spinner.fail(chalk.red.bold('发布到服务器失败,请配置projectName'));
+        spinner.error({ text: '发布到服务器失败,请配置projectName', mark: ':(' });
       } else if (!viteConfig) {
-        spinner.fail(chalk.red.bold('发布到服务器失败,ResolvedConfig为空'));
+        spinner.error({ text: '发布到服务器失败,ResolvedConfig为空', mark: ':(' });
       } else {
         try {
           const outDir = viteConfig.build.outDir; // 得到打包文件存放的目录 （dist）
@@ -158,9 +157,9 @@ export default function plugin(config: $Config) {
           }
           const postData: $PostParam = { mac: getMac(), projectName }; // 上传的额外参数
           await uploading(uploadUrl, buf, zipName, postData);
-          spinner.succeed(chalk.green.bold('发布到服务器成功'));
+          spinner.success({ text: '发布到服务器成功', mark: ':)' });
         } catch (err) {
-          spinner.fail(chalk.red.bold(err));
+          spinner.error({ text: err, mark: ':(' });
         }
       }
     }
