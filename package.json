@@ -8,26 +8,26 @@
     "vite",
     "build"
   ],
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    "require": "./dist/index.js",
-    "import": "./dist/index.mjs"
-  },
-  "dependencies": {
-    "form-data": "latest",
-    "getmac": "latest",
-    "jszip": "latest",
-    "nanospinner": "^1.1.0",
-    "path": "latest"
+    "require": "./dist/index.cjs",
+    "import": "./dist/index.js"
   },
   "files": [
     "dist"
   ],
-  "type": "module",
+  "dependencies": {
+    "form-data": "latest",
+    "getmac": "latest",
+    "jszip": "latest",
+    "nanospinner": "latest",
+    "path": "latest"
+  },
   "devDependencies": {
-    "tsup": "^6.5.0",
+    "tsup": "latest",
     "typescript": "latest",
     "vite": "latest"
   },
