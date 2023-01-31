@@ -9,7 +9,12 @@
     "build"
   ],
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "exports": {
+    "require": "./dist/index.js",
+    "import": "./dist/index.mjs"
+  },
   "dependencies": {
     "chalk": "latest",
     "form-data": "latest",
@@ -19,16 +24,16 @@
     "path": "latest"
   },
   "files": [
-    "dist",
-    "*.d.ts"
+    "dist"
   ],
-  "type": "module",
+  "type": "commonjs",
   "devDependencies": {
+    "tsup": "^6.5.0",
     "typescript": "latest",
     "vite": "latest"
   },
   "scripts": {
-    "打包": "rimraf dist && tsc",
+    "打包": "tsup -- --dts-resolve",
     "登录": "npm login",
     "更新一个补丁": "npm version patch",
     "更新一个小改动": "npm version minor",
