@@ -52,17 +52,27 @@ export default defineConfig(() => {
 
 ## 服务器开发指南
 
-本插件最终会上传如下参数给服务器：
+- **本插件最终会上传参数给服务器**
 
 ```js
+// 上传的是一个 FormData 格式的 post 请求
 {
   file:aaaa.zip, // 压缩后的zip文件流 (服务器端需要解压吃文件然后部署到指定文件夹下)
   mac:'', // mac地址 (主要用于限制那些mac可以上传)
-  projectName:'' ，// 项目名称 (主要用于如果由多个项目都是用一个上传接口，那么就可以根据项目名称来确定这个项目要部署到哪个文件夹下)
+  projectName:''，// 项目名称 (如果多个项目都是用的同上传地址时，服务端可用此字段区分是哪一个项目)
 }
 ```
 
-服务器端可通过 `file` 获取上传的源代码压缩包， 通过 `mac` 来限制允许那些设备上传，通过 `projectName` 指定这个项目应该部署到哪个目录下， 对于服务器端来说`mac`和`projectName`都不是必须的，也可根据自己的业务来决定是否使用`mac`和`projectName`，本人用 php 写了一个简单的服务端代码（[vite_auto_deploy_php](https://gitee.com/mxp_open/vite_auto_deploy_php/blob/master/main/deploy.php)）仅供参考
+- **服务器需要返回的参数**
+
+```js
+{
+  code:1, // 1代表上传成功，其他代表上传失败
+  msg:'上传成功', // 上传成功或失败的提示信息
+}
+```
+
+服务器端可通过 `file` 获取上传的源代码压缩包， 通过 `mac`（通过[getmac](https://www.npmjs.com/package/getmac)获取） 来限制允许那些设备上传，通过 `projectName`（使用本插件时配置的项目名称）指定这个项目应该部署到哪个目录下， 对于服务器端来说`mac`和`projectName`都不是必须的，也可根据自己的业务来决定是否使用`mac`和`projectName`，本人用`php`写了一个简单的服务端示例项目（[vite_auto_deploy_php](https://gitee.com/mxp_open/vite_auto_deploy_php/blob/master/main/deploy.php)）供大家参考
 
 ## 如需帮助
 
