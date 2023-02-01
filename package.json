@@ -1,6 +1,6 @@
 {
   "name": "vite-auto-deploy",
-  "version": "1.1.19",
+  "version": "1.2.0",
   "description": "用于配合 PHP 自动打包并上传打包后的文件到服务器指定目录的插件，此插件需要配合 php [项目地址](https://gitee.com/mxp131011/auto_deploy/)",
   "keywords": [
     "automation",
@@ -12,6 +12,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
+    "types": "./dist/index.d.ts",
     "require": "./dist/index.js",
     "import": "./dist/index.mjs"
   },
