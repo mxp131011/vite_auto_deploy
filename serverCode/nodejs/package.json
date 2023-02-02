@@ -1,0 +1,45 @@
+{
+  "name": "koa-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
+    "build": "cross-env NODE_ENV=production && rimraf dist && tsc --skipLibCheck",
+    "更新": "ncu -u",
+    "安装": "npm install",
+    "检查代码": "run-p stylelint tsc eslint",
+    "删除": "rimraf node_modules && rimraf pnpm-lock.yaml && rimraf package-lock.json"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": [
+    "koa",
+    "node"
+  ],
+  "author": "O昵称重要吗O<mxp131011@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@koa/router": "^12.0.0",
+    "compressing": "^1.7.0",
+    "fs-extra": "^11.1.0",
+    "koa": "^2.14.1",
+    "koa-body": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/koa": "^2.13.5",
+    "@types/koa__router": "^12.0.0",
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.33.0",
+    "eslint-plugin-jsdoc": "^39.7.5",
+    "prettier": "^2.8.3",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "5.0.0-beta"
+  }
+}
