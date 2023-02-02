@@ -76,8 +76,8 @@ export default defineConfig(() => {
 
 ### 服务器示例代码
 
-1. [php](https://gitee.com/mxp_open/vite_auto_deploy/serverCode/php)
-2. [nodejs](https://gitee.com/mxp_open/vite_auto_deploy/serverCode/nodejs)
+1. [php](https://gitee.com/mxp_open/vite_auto_deploy/tree/master/serverCode/php)
+2. [nodejs](https://gitee.com/mxp_open/vite_auto_deploy/tree/master/serverCode/nodejs)
 
 ## 如需帮助
 
