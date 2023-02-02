@@ -22,6 +22,7 @@ router.post('/uploadSourceCode', async (ctx: Context) => {
     const { uploadSourceCode } = await import('./controller/uploadFile');
     await uploadSourceCode(ctx);
   } catch (error) {
+    console.log('error====', error);
     ctx.state.fail(getErrorData(error));
   }
 });
