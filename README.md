@@ -74,7 +74,7 @@ export default defineConfig(() => {
 
 服务器端可通过 `file` 获取上传的源代码压缩包， 通过 `mac`（通过[getmac](https://www.npmjs.com/package/getmac)获取） 来限制允许那些设备上传，通过 `projectName`（使用本插件时配置的项目名称）指定这个项目应该部署到哪个目录下， 对于服务器端来说`mac`和`projectName`都不是必须的，也可根据自己的业务来决定是否使用`mac`和`projectName`，可参照本项目`serverCode`目录下的代码开发
 
-### 服务器示例代码
+## 服务器示例代码
 
 1. [php](https://gitee.com/mxp_open/vite_auto_deploy/tree/master/serverCode/php)
 2. [nodejs](https://gitee.com/mxp_open/vite_auto_deploy/tree/master/serverCode/nodejs)
