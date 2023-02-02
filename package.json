@@ -28,8 +28,11 @@
   },
   "devDependencies": {
     "tsup": "latest",
-    "typescript": "latest",
-    "vite": "latest"
+    "typescript": "5.0.0-beta",
+    "vite": "latest",
+    "eslint": "^8.33.0",
+    "eslint-plugin-jsdoc": "^39.7.5",
+    "prettier": "^2.8.3"
   },
   "scripts": {
     "打包": "tsup",
