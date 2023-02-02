@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "tsup": "latest",
-    "typescript": "5.0.0-beta",
+    "typescript": "latest",
     "vite": "latest",
     "eslint": "^8.33.0",
     "eslint-plugin-jsdoc": "^39.7.5",
@@ -36,6 +36,7 @@
   },
   "scripts": {
     "打包": "tsup",
+    "安装": "npm install",
     "登录": "npm login",
     "更新一个补丁": "npm version patch",
     "更新一个小改动": "npm version minor",

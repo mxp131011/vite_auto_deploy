@@ -37,6 +37,6 @@
     "@typescript-eslint/parser": "^5.50.0",
     "cross-env": "^7.0.3",
     "ts-node-dev": "^2.0.0",
-    "typescript": "5.0.0-beta"
+    "typescript": "latest"
   }
 }
