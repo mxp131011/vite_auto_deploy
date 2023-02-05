@@ -19,29 +19,29 @@ $projectName = getParameter('projectName');
 $mac = getParameter('mac');
 
 if (!$mac) { // 不需要验证mac请注释掉
-    die(echoJson(-1, '上传失败，未获取到MAC地址'));
+    die(echoJson(-1, '部署失败，未获取到MAC地址'));
 } elseif (!in_array($mac, $upMacWhiteList, true)) { // 不需要验证mac请注释掉
-    die(echoJson(-2, '上传失败，请联系管理员授权此设备MAC(' . $mac . ')'));
+    die(echoJson(-2, '部署失败，请联系管理员授权此设备MAC(' . $mac . ')'));
 } elseif (!$projectName) {
-    die(echoJson(-3, '上传失败，未获取到项目名称'));
-} elseif (!isset($_FILES["file"])) {
-    die(echoJson(-4, '上传失败，未获取到上传文件'));
+    die(echoJson(-3, '部署失败，未获取到项目名称'));
 } elseif (!array_key_exists($projectName, $upProjectSavePathObj)) {
-    die(echoJson(-5, '上传失败，此项目不支持上传'));
+    die(echoJson(-5, '部署失败，暂不支持部署此项目，请联系管理员添加'));
+} elseif (!isset($_FILES["file"])) {
+    die(echoJson(-4, '部署失败，未获取到上传文件'));
 } else {
     $folder_path = $upProjectSavePathObj[$projectName]; // 得到保存的相对路径
     $file = $_FILES["file"]; // 获取文件
     if ($file["error"] > 0) {
-        die(echoJson(-6, '上传失败，获取上传文件失败'));
+        die(echoJson(-6, '部署失败，未获取到获取压缩文件'));
     } elseif (!in_array($file["type"], $upFileWhiteList)) {
-        die(echoJson(-7, '上传失败，不允许此类型文件上传'));
+        die(echoJson(-7, '部署失败，不允许此类型文件上传'));
     } else {
         $tmp_file_path = $file["tmp_name"];
         if (del_dir($folder_path)) {
             unzip_file($tmp_file_path, $folder_path);
-            echo echoJson(1, '上传成功');
+            echo echoJson(1, '部署成功');
         } else {
-            echo echoJson(-8, '上传失败，删除原文件失败');
+            echo echoJson(-8, '部署失败，删除原文件失败');
         }
     }
 }
@@ -60,7 +60,7 @@ function unzip_file($file, $destination) {
         $zip->close();
         return true;
     } else {
-        die(echoJson(-9, '上传失败，解压源文件失败'));
+        die(echoJson(-9, '部署失败，解压源文件失败'));
     }
 }
 
