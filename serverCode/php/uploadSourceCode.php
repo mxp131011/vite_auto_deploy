@@ -1,13 +1,13 @@
 <?php
 
 /** 允许上传的文件类型 (这些都是zip的类型，主要要使用'application/zip'类型) */
-$upFileWhiteList = ['application/zip','application/x-zip-compressed','application/x-zip','application/octet-stream','application/x-compressed']; 
+$upFileWhiteList = ['application/zip', 'application/x-zip-compressed', 'application/x-zip', 'application/octet-stream', 'application/x-compressed'];
 
 /** 允许上传的项目名称和与之对应的部署路径 (支持绝对路径和相对路径) */
 $upProjectSavePathObj = [
     'project1' => './auto_deploy1', // 相对路径
     'project2' => dirname(__FILE__) . '/auto_deploy2', // 绝对路径
-    't9erppc3' =>  "C:/wwwroot/auto_deploy3" // 绝对路径
+    't9erppc3' => "C:/wwwroot/auto_deploy3" // 绝对路径
 ];
 
 /** 允许上传的mac地址 */
@@ -18,16 +18,17 @@ $projectName = getParameter('projectName');
 // 得到传入的mac
 $mac = getParameter('mac');
 
-if (!$mac) { // 不需要验证mac请注释掉
-    die(echoJson(-1, '部署失败，未获取到MAC地址'));
+// 注意如果不传文件则其他参数有可能获取不到值
+if (!isset($_FILES["file"])) {
+    die(echoJson(-1, '部署失败，未获取到上传文件'));
+} else if (!$mac) { // 不需要验证mac请注释掉
+    die(echoJson(-2, '部署失败，未获取到MAC地址'));
 } elseif (!in_array($mac, $upMacWhiteList, true)) { // 不需要验证mac请注释掉
-    die(echoJson(-2, '部署失败，请联系管理员授权此设备MAC(' . $mac . ')'));
+    die(echoJson(-3, '部署失败，请联系管理员授权此设备MAC(' . $mac . ')'));
 } elseif (!$projectName) {
-    die(echoJson(-3, '部署失败，未获取到项目名称'));
+    die(echoJson(-4, '部署失败，未获取到项目名称'));
 } elseif (!array_key_exists($projectName, $upProjectSavePathObj)) {
     die(echoJson(-5, '部署失败，暂不支持部署此项目，请联系管理员添加'));
-} elseif (!isset($_FILES["file"])) {
-    die(echoJson(-4, '部署失败，未获取到上传文件'));
 } else {
     $folder_path = $upProjectSavePathObj[$projectName]; // 得到保存的相对路径
     $file = $_FILES["file"]; // 获取文件
@@ -69,7 +70,7 @@ function unzip_file($file, $destination) {
  * @param string $dir 要删除的路径 相对路径如：'../../aaa'
  * @return Boolean
  */
-function del_dir($dir): bool {
+function del_dir($dir) {
     // 判断是否为目录
     if (is_dir($dir)) { // 判断是否存在
         $handle = opendir($dir); // 打开目录
@@ -95,6 +96,7 @@ function del_dir($dir): bool {
  * @param string $parameter 参数名
  */
 function getParameter($parameter) {
+
     if (isset($_REQUEST[$parameter]) && $_REQUEST[$parameter] != 'null' && $_REQUEST[$parameter] != "undefined") {
         if ($_REQUEST[$parameter] == "false") {
             return false;
